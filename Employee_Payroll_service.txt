@@ -1,0 +1,256 @@
+Enter password: ****
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 29
+Server version: 8.0.27 MySQL Community Server - GPL
+
+Copyright (c) 2000, 2021, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> create database Payroll_Service;
+Query OK, 1 row affected (0.02 sec)
+
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| information_schema |
+| mysql              |
+| payroll_service    |
+| payrollservice     |
+| performance_schema |
+| sakila             |
+| sample             |
+| sys                |
+| world              |
++--------------------+
+9 rows in set (0.01 sec)
+
+mysql> use Payroll_Service;
+Database changed
+mysql> create table Payroll_Service (id int not null auto_increment, name varchar(50) not null, salary double not null, start date not null, primary key(id));
+Query OK, 0 rows affected (0.10 sec)
+
+mysql> describe Payroll_Service;
++--------+-------------+------+-----+---------+----------------+
+| Field  | Type        | Null | Key | Default | Extra          |
++--------+-------------+------+-----+---------+----------------+
+| id     | int         | NO   | PRI | NULL    | auto_increment |
+| name   | varchar(50) | NO   |     | NULL    |                |
+| salary | double      | NO   |     | NULL    |                |
+| start  | date        | NO   |     | NULL    |                |
++--------+-------------+------+-----+---------+----------------+
+4 rows in set (0.01 sec)
+
+mysql> insert into  payroll_service (name, salary, start) values ('Priyanka', 100000.00, '2022-01-24');
+Query OK, 1 row affected (0.02 sec)
+
+mysql> insert into  payroll_service (name, salary, start) values ('Kavya', 200000.00, '2022-01-23');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into  payroll_service (name, salary, start) values ('Rani', 300000.00, '2022-01-23');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> select * from payroll_service;
++----+----------+--------+------------+
+| id | name     | salary | start      |
++----+----------+--------+------------+
+|  1 | Priyanka | 100000 | 2022-01-24 |
+|  2 | Kavya    | 200000 | 2022-01-23 |
+|  3 | Rani     | 300000 | 2022-01-23 |
++----+----------+--------+------------+
+3 rows in set (0.00 sec)
+
+mysql> insert into  payroll_service (name, salary, start) values ('Megha', 400000.00, '2022-01-25');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> select * from payroll_service;
++----+----------+--------+------------+
+| id | name     | salary | start      |
++----+----------+--------+------------+
+|  1 | Priyanka | 100000 | 2022-01-24 |
+|  2 | Kavya    | 200000 | 2022-01-23 |
+|  3 | Rani     | 300000 | 2022-01-23 |
+|  4 | Megha    | 400000 | 2022-01-25 |
++----+----------+--------+------------+
+4 rows in set (0.00 sec)
+
+mysql> delete from  employee_payroll where name ='Rani';
+ERROR 1146 (42S02): Table 'payroll_service.employee_payroll' doesn't exist
+mysql> delete from  payroll_service where name ='Rani';
+Query OK, 1 row affected (0.01 sec)
+
+mysql> select * from payroll_service;
++----+----------+--------+------------+
+| id | name     | salary | start      |
++----+----------+--------+------------+
+|  1 | Priyanka | 100000 | 2022-01-24 |
+|  2 | Kavya    | 200000 | 2022-01-23 |
+|  4 | Megha    | 400000 | 2022-01-25 |
++----+----------+--------+------------+
+3 rows in set (0.00 sec)
+
+mysql>  alter table payroll_service add gender char(1) after name;
+Query OK, 0 rows affected (0.11 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> select * from payroll_service;
++----+----------+--------+--------+------------+
+| id | name     | gender | salary | start      |
++----+----------+--------+--------+------------+
+|  1 | Priyanka | NULL   | 100000 | 2022-01-24 |
+|  2 | Kavya    | NULL   | 200000 | 2022-01-23 |
+|  4 | Megha    | NULL   | 400000 | 2022-01-25 |
++----+----------+--------+--------+------------+
+3 rows in set (0.00 sec)
+
+mysql>  insert into  payroll_service (name, gender, salary, start) values ('Priyanka','F', 100000.00, '2021-01-24');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> select * from payroll_service;
++----+----------+--------+--------+------------+
+| id | name     | gender | salary | start      |
++----+----------+--------+--------+------------+
+|  1 | Priyanka | NULL   | 100000 | 2022-01-24 |
+|  2 | Kavya    | NULL   | 200000 | 2022-01-23 |
+|  4 | Megha    | NULL   | 400000 | 2022-01-25 |
+|  5 | Priyanka | F      | 100000 | 2021-01-24 |
++----+----------+--------+--------+------------+
+4 rows in set (0.01 sec)
+
+mysql> insert into  payroll_service (name, gender, salary, start) values ('Kavya','F', 200000.00, '2022-01-23');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> select * from payroll_service;
++----+----------+--------+--------+------------+
+| id | name     | gender | salary | start      |
++----+----------+--------+--------+------------+
+|  1 | Priyanka | NULL   | 100000 | 2022-01-24 |
+|  2 | Kavya    | NULL   | 200000 | 2022-01-23 |
+|  4 | Megha    | NULL   | 400000 | 2022-01-25 |
+|  5 | Priyanka | F      | 100000 | 2021-01-24 |
+|  6 | Kavya    | F      | 200000 | 2022-01-23 |
++----+----------+--------+--------+------------+
+5 rows in set (0.00 sec)
+
+mysql> update payroll_service set gender = 'F' where id=1;
+Query OK, 1 row affected (0.01 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select * from payroll_service;
++----+----------+--------+--------+------------+
+| id | name     | gender | salary | start      |
++----+----------+--------+--------+------------+
+|  1 | Priyanka | F      | 100000 | 2022-01-24 |
+|  2 | Kavya    | NULL   | 200000 | 2022-01-23 |
+|  4 | Megha    | NULL   | 400000 | 2022-01-25 |
+|  5 | Priyanka | F      | 100000 | 2021-01-24 |
+|  6 | Kavya    | F      | 200000 | 2022-01-23 |
++----+----------+--------+--------+------------+
+5 rows in set (0.00 sec)
+
+mysql> update payroll_service set gender = 'F' where id=2;
+Query OK, 1 row affected (0.01 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select * from payroll_service;
++----+----------+--------+--------+------------+
+| id | name     | gender | salary | start      |
++----+----------+--------+--------+------------+
+|  1 | Priyanka | F      | 100000 | 2022-01-24 |
+|  2 | Kavya    | F      | 200000 | 2022-01-23 |
+|  4 | Megha    | NULL   | 400000 | 2022-01-25 |
+|  5 | Priyanka | F      | 100000 | 2021-01-24 |
+|  6 | Kavya    | F      | 200000 | 2022-01-23 |
++----+----------+--------+--------+------------+
+5 rows in set (0.00 sec)
+
+mysql> update payroll_service set gender = 'F' where id=4;
+Query OK, 1 row affected (0.01 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select * from payroll_service;
++----+----------+--------+--------+------------+
+| id | name     | gender | salary | start      |
++----+----------+--------+--------+------------+
+|  1 | Priyanka | F      | 100000 | 2022-01-24 |
+|  2 | Kavya    | F      | 200000 | 2022-01-23 |
+|  4 | Megha    | F      | 400000 | 2022-01-25 |
+|  5 | Priyanka | F      | 100000 | 2021-01-24 |
+|  6 | Kavya    | F      | 200000 | 2022-01-23 |
++----+----------+--------+--------+------------+
+5 rows in set (0.00 sec)
+
+mysql> delete from  employee_payroll where id =5;
+ERROR 1146 (42S02): Table 'payroll_service.employee_payroll' doesn't exist
+mysql> delete from  payroll_service where id =5;
+Query OK, 1 row affected (0.01 sec)
+
+mysql> select * from payroll_service;
++----+----------+--------+--------+------------+
+| id | name     | gender | salary | start      |
++----+----------+--------+--------+------------+
+|  1 | Priyanka | F      | 100000 | 2022-01-24 |
+|  2 | Kavya    | F      | 200000 | 2022-01-23 |
+|  4 | Megha    | F      | 400000 | 2022-01-25 |
+|  6 | Kavya    | F      | 200000 | 2022-01-23 |
++----+----------+--------+--------+------------+
+4 rows in set (0.01 sec)
+
+mysql> update payroll_service set gender = 'F' where id=6;
+Query OK, 0 rows affected (0.00 sec)
+Rows matched: 1  Changed: 0  Warnings: 0
+
+mysql> select * from payroll_service;
++----+----------+--------+--------+------------+
+| id | name     | gender | salary | start      |
++----+----------+--------+--------+------------+
+|  1 | Priyanka | F      | 100000 | 2022-01-24 |
+|  2 | Kavya    | F      | 200000 | 2022-01-23 |
+|  4 | Megha    | F      | 400000 | 2022-01-25 |
+|  6 | Kavya    | F      | 200000 | 2022-01-23 |
++----+----------+--------+--------+------------+
+4 rows in set (0.00 sec)
+
+mysql> delete from  payroll_service where id =6;
+Query OK, 1 row affected (0.01 sec)
+
+mysql> select * from payroll_service;
++----+----------+--------+--------+------------+
+| id | name     | gender | salary | start      |
++----+----------+--------+--------+------------+
+|  1 | Priyanka | F      | 100000 | 2022-01-24 |
+|  2 | Kavya    | F      | 200000 | 2022-01-23 |
+|  4 | Megha    | F      | 400000 | 2022-01-25 |
++----+----------+--------+--------+------------+
+3 rows in set (0.00 sec)
+
+mysql> select sum(salary) from  payroll_service;
++-------------+
+| sum(salary) |
++-------------+
+|      700000 |
++-------------+
+1 row in set (0.01 sec)
+
+mysql> select sum(salary)as SUM_OF_SALARY from  payroll_service;
++---------------+
+| SUM_OF_SALARY |
++---------------+
+|        700000 |
++---------------+
+1 row in set (0.00 sec)
+
+mysql> select avg(salary)as AVG_OF_SALARY from  payroll_service;
++--------------------+
+| AVG_OF_SALARY      |
++--------------------+
+| 233333.33333333334 |
++--------------------+
+1 row in set (0.00 sec)
+
+mysql>
